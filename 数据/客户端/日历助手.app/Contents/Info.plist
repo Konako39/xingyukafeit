@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+	<string>com.xingyu.teahouse.calendar-helper</string>
+	<key>CFBundleName</key>
+	<string>星语茶话屋日历助手</string>
+	<key>CFBundleDisplayName</key>
+	<string>星语茶话屋日历助手</string>
+	<key>CFBundleExecutable</key>
+	<string>日历助手</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>13.0</string>
+	<key>LSUIElement</key>
+	<true/>
+	<key>NSCalendarsUsageDescription</key>
+	<string>星语茶话屋需要访问日历，以便按你的自然语言指令添加、查询和删除日程。</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>星语茶话屋需要完整日历访问权限，以便按你的自然语言指令添加、查询和删除日程。</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>星语茶话屋需要访问提醒事项，以便按你的自然语言指令添加、查询和完成待办。</string>
+	<key>NSRemindersFullAccessUsageDescription</key>
+	<string>星语茶话屋需要完整提醒事项访问权限，以便按你的自然语言指令添加、查询和完成待办。</string>
+</dict>
+</plist>

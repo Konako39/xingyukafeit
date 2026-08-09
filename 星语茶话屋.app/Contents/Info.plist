@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleDevelopmentRegion</key><string>zh_CN</string>
+  <key>CFBundleDisplayName</key><string>星语茶话屋</string>
+  <key>CFBundleExecutable</key><string>LocalAIStudio</string>
+  <key>CFBundleIconFile</key><string>AppIcon</string>
+  <key>CFBundleIdentifier</key><string>local.konako.ai.studio</string>
+  <key>CFBundleInfoDictionaryVersion</key><string>6.0</string>
+  <key>CFBundleName</key><string>星语茶话屋</string>
+  <key>CFBundlePackageType</key><string>APPL</string>
+  <key>CFBundleShortVersionString</key><string>4.0</string>
+  <key>CFBundleVersion</key><string>4</string>
+  <key>LSUIElement</key><true/>
+  <key>LSMinimumSystemVersion</key><string>13.0</string>
+  <key>NSAppTransportSecurity</key>
+  <dict><key>NSAllowsLocalNetworking</key><true/></dict>
+  <key>NSHighResolutionCapable</key><true/>
+  <key>NSScreenCaptureUsageDescription</key>
+  <string>用于让艾莉和沙雅偶尔观察主人当前屏幕并形成仅保存在本机的文字记忆；截图不会落盘。</string>
+  <key>NSPrincipalClass</key><string>NSApplication</string>
+  <key>NSRequiresAquaSystemAppearance</key><false/>
+</dict>
+</plist>

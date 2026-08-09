@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>星语茶话屋 · 快速对话</title>
+  <link rel="stylesheet" href="/app/quick.css">
+</head>
+<body class="aili">
+  <div class="glow"></div>
+  <div class="floating-sparkles" aria-hidden="true"><i>✦</i><i>♥</i><i>✧</i><i>☆</i></div>
+  <main class="quick-shell">
+    <header>
+      <div class="quick-brand"><img src="/app/assets/app-icon.png" alt="星语茶话屋"><div><b>星语茶话屋</b><em>AILI × SHAYA</em><small><i id="serviceDot"></i><span id="serviceText">正在连接</span></small></div></div>
+      <button class="main-button" id="openMainButton" title="打开主面板">进入小屋 ↗</button>
+    </header>
+
+    <section class="persona-picker" id="personaPicker"></section>
+
+    <section class="control-card">
+      <span class="card-ribbon">✦ 秘密频道 ✦</span>
+      <label><span>最近对话（最多 40 条）</span><select id="historySelect"><option value="">新对话</option></select></label>
+      <div class="control-row">
+        <label><span>模型档位</span><select id="tierSelect"><option value="4b">极速 · 4B</option><option value="9b">日用 · 9B</option><option value="27b">高级 · 27B</option><option value="ultimate">究极</option></select></label>
+        <div class="quality-picker" id="qualityPicker"><button data-quality="fast">快速</button><button data-quality="balanced">均衡</button><button data-quality="deep">深度</button></div>
+      </div>
+    </section>
+
+    <section class="quick-messages" id="messages">
+      <div class="empty-state"><img id="emptyPortrait" src="/app/assets/aili-full.png" alt="艾莉"><div><span class="empty-kicker">✦ 元气上线 ✦</span><b id="emptyTitle">艾莉在这儿</b><p>有啥就说啥呗，聊到哪算哪～别那么拘谨💗</p></div></div>
+    </section>
+
+    <div class="quick-actions" id="quickActions">
+      <button data-preset="/日程 今天" title="查询今天的系统日历">📅 今日</button>
+      <button data-preset="/日程 本周" title="查询本周的系统日历">🗓 本周</button>
+      <button data-preset="/待办" title="查询提醒事项">☑️ 待办</button>
+      <button id="slashButton" class="slash-chip" title="命令面板：日程/提醒/找文件/打开/记事/音乐">/</button>
+      <button id="newChatButton" title="开启新对话">✚ 新对话</button>
+    </div>
+    <div class="quick-status" id="quickStatus">准备就绪</div>
+    <footer class="quick-composer">
+      <div class="command-palette hidden" id="commandPalette"></div>
+      <textarea id="messageInput" rows="1" placeholder="Enter 发送 · 输入 / 打开命令面板"></textarea>
+      <button id="sendButton" title="发送"><span>↑</span></button>
+    </footer>
+  </main>
+  <div class="toast" id="toast"></div>
+  <script src="/app/quick.js"></script>
+</body>
+</html>

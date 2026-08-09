@@ -1,0 +1,9 @@
+.DS_Store
+__pycache__/
+*.pyc
+/数据/配置/deepseek_api_key
+/数据/*.sqlite3
+/数据/上传/
+/数据/缓存/
+/数据/备份/
+/数据/日志/

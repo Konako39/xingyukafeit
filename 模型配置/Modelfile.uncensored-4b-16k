@@ -1,0 +1,3 @@
+FROM huihui_ai/qwen3.5-abliterated:4B
+PARAMETER num_ctx 16384
+PARAMETER num_predict 2048

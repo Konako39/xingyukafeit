@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>星语茶话屋 · 快速对话</title>
+  <link rel="stylesheet" href="/app/quick.css">
+</head>
+<body class="aili">
+  <div class="glow"></div>
+  <div class="floating-sparkles" aria-hidden="true"><i>✦</i><i>♥</i><i>✧</i><i>☆</i></div>
+  <main class="quick-shell">
+    <header>
+      <div class="quick-brand"><img src="/app/assets/app-icon.png" alt="星语茶话屋"><div><b>星语茶话屋</b><em>AILI × SHAYA</em><small><i id="serviceDot"></i><span id="serviceText">正在连接</span></small></div></div>
+      <button class="main-button" id="openMainButton" title="打开主面板">进入小屋 ↗</button>
+    </header>
+
+    <section class="persona-picker" id="personaPicker"></section>
+
+    <section class="control-card">
+      <span class="card-ribbon">✦ 秘密频道 ✦</span>
+      <label><span>历史对话</span><select id="historySelect"><option value="">新对话</option></select></label>
+      <div class="control-row">
+        <label><span>模型档位</span><select id="tierSelect"><option value="4b">极速 · 4B</option><option value="9b">日用 · 9B</option><option value="27b">高级 · 27B</option><option value="ultimate">究极</option></select></label>
+        <div class="quality-picker" id="qualityPicker"><button data-quality="fast">快速</button><button data-quality="balanced">均衡</button><button data-quality="deep">深度</button></div>
+      </div>
+    </section>
+
+    <section class="quick-messages" id="messages">
+      <div class="empty-state"><img id="emptyPortrait" src="/app/assets/aili-full.png" alt="艾莉"><div><span class="empty-kicker">✦ 小恶魔在线 ✦</span><b id="emptyTitle">艾莉在这儿</b><p>什么话题都找我吧💗 聊天、创作，还是认真做事，我都在。</p></div></div>
+    </section>
+
+    <div class="quick-status" id="quickStatus">准备就绪</div>
+    <footer class="quick-composer">
+      <textarea id="messageInput" rows="1" placeholder="按 Enter 快速发送，Shift+Enter 换行"></textarea>
+      <button id="sendButton" title="发送"><span>↑</span></button>
+    </footer>
+  </main>
+  <div class="toast" id="toast"></div>
+  <script src="/app/quick.js"></script>
+</body>
+</html>

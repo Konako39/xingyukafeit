@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#17192a"/><stop offset="1" stop-color="#080a10"/></linearGradient>
+    <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b09cff"/><stop offset="1" stop-color="#6651ec"/></linearGradient>
+    <linearGradient id="mint" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#67efd0"/><stop offset="1" stop-color="#278bab"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="24" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1024" height="1024" rx="228" fill="url(#bg)"/>
+  <circle cx="760" cy="180" r="270" fill="#6754e7" opacity=".12"/>
+  <circle cx="180" cy="850" r="260" fill="#2bcca9" opacity=".08"/>
+  <g filter="url(#glow)" transform="translate(205 225) skewX(-9)">
+    <rect x="0" y="44" width="144" height="510" rx="42" fill="url(#violet)"/>
+    <rect x="232" y="121" width="144" height="390" rx="42" fill="url(#mint)"/>
+    <rect x="464" y="0" width="144" height="468" rx="42" fill="url(#violet)"/>
+  </g>
+  <rect x="30" y="30" width="964" height="964" rx="204" fill="none" stroke="#fff" stroke-opacity=".08" stroke-width="3"/>
+</svg>

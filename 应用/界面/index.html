@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>星语茶话屋</title>
+  <link rel="stylesheet" href="/app/styles.css">
+</head>
+<body>
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+  <div class="ultimate-particles" id="ultimateParticles" aria-hidden="true">
+    <i></i><i></i><i></i><i></i><i></i><i></i>
+    <i></i><i></i><i></i><i></i><i></i><i></i>
+  </div>
+  <div class="character-stage" aria-hidden="true">
+    <img class="character-art aili-art" src="/app/assets/aili-full.png" alt="">
+    <img class="character-art shaya-art" src="/app/assets/shaya-full.png" alt="">
+  </div>
+
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand-row">
+        <img class="brand-icon" src="/app/assets/app-icon.png" alt="星语茶话屋">
+        <div>
+          <div class="brand-name">星语茶话屋</div>
+          <div class="brand-sub">AILI × SHAYA</div>
+        </div>
+      </div>
+
+      <button class="new-chat-button" id="newChatButton">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        <span>新建对话</span>
+        <kbd>⌘N</kbd>
+      </button>
+
+      <label class="search-box">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+        <input id="sessionSearch" placeholder="搜索对话">
+      </label>
+
+      <div class="sidebar-label">
+        <span>对话记忆</span>
+        <span id="sessionCount">0</span>
+      </div>
+      <nav class="session-list" id="sessionList"></nav>
+      <button class="session-list-more hidden" id="loadMoreSessions">再加载 40 条</button>
+
+      <div class="sidebar-footer">
+        <button class="footer-button" id="apiButton">
+          <span class="status-dot" id="apiStatusDot"></span>
+          <span class="footer-button-copy">
+            <b>本地服务</b>
+            <small id="apiStatusText">正在连接…</small>
+          </span>
+          <svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+        <button class="footer-button" id="settingsButton">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21h-4v-.09A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3v-4h.09A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3h4v.09A1.7 1.7 0 0 0 15.4 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9c.16.37.37.7.66.98.3.27.68.42 1.08.42H21v4h-.09a1.7 1.7 0 0 0-1.51.6Z"/></svg>
+          <span class="footer-button-copy"><b>设置与管理</b><small>模型、记忆、存储</small></span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main-panel">
+      <header class="topbar">
+        <div class="model-control-wrap">
+          <div class="persona-switch" id="personaSwitch" aria-label="选择人格"></div>
+          <label class="model-control">
+            <span class="model-orb" id="modelOrb"></span>
+            <span class="model-label-wrap">
+              <small id="modelControlLabel">模型档位</small>
+              <b id="tierSelectValue">日用档 · 9B</b>
+            </span>
+            <select id="tierSelect" aria-label="切换当前会话的模型档位">
+              <option value="4b">极速档 · 4B</option>
+              <option value="9b">日用档 · 9B</option>
+              <option value="27b">高级档 · 27B</option>
+              <option value="ultimate">究极</option>
+            </select>
+            <svg viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></svg>
+          </label>
+          <span class="capability-pill"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 15-5-4-7 7"/></svg>视觉</span>
+          <span class="capability-pill" id="contextPill">16K 上下文</span>
+        </div>
+        <div class="top-actions">
+          <button class="icon-button" id="renameButton" title="重命名会话">
+            <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg>
+          </button>
+          <button class="icon-button" id="exportButton" title="导出会话">
+            <svg viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 20h14"/></svg>
+          </button>
+          <button class="icon-button danger-hover" id="deleteButton" title="删除会话">
+            <svg viewBox="0 0 24 24"><path d="M4 7h16M10 11v6m4-6v6M9 7l1-3h4l1 3m3 0-1 14H7L6 7"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <section class="chat-scroll" id="chatScroll">
+        <button class="load-older hidden" id="loadOlderButton">加载更早原文</button>
+        <div class="welcome" id="welcomeView">
+          <div class="welcome-character-card">
+            <img id="welcomePortrait" src="/app/assets/aili-full.png" alt="艾莉">
+            <div class="welcome-character-copy">
+              <div class="eyebrow">✦ 今天也在等你回家 ✦</div>
+              <h1 id="welcomeTitle">艾莉与你一起</h1>
+              <p id="welcomeDescription">有啥就说啥呗，聊到哪算哪～别那么拘谨。</p>
+              <div class="profile-glimpse" id="profileGlimpse">正在读取艾莉的自我档案…</div>
+            </div>
+          </div>
+          <div class="starter-grid">
+            <button data-prompt="帮我分析一个复杂问题，先问我背景。"><span>◈</span><b>深度分析</b><small>将复杂任务拆成可执行步骤</small></button>
+            <button data-prompt="帮我写一段高质量中文文案，先问我主题和风格。"><span>✦</span><b>中文创作</b><small>文案、故事、改写与头脑风暴</small></button>
+            <button id="starterImage"><span>▣</span><b>理解图片</b><small>上传截图、照片或图表开始分析</small></button>
+          </div>
+        </div>
+        <div class="messages" id="messages"></div>
+      </section>
+
+      <div class="generation-status hidden" id="generationStatus">
+        <span class="pulse-dot"></span><span id="generationStatusText">正在思考…</span>
+      </div>
+
+      <footer class="composer-zone">
+        <div class="chat-toolbar">
+          <div class="quality-switch" id="qualitySwitch" aria-label="回答质量模式">
+            <button data-quality="fast">⚡ 快速</button>
+            <button data-quality="balanced">◈ 均衡</button>
+            <button data-quality="deep">✦ 深度</button>
+          </div>
+          <div class="runtime-insights">
+            <span id="memoryRecallChip">记忆检索待命</span>
+            <span id="contextUsageChip">上下文待命</span>
+          </div>
+        </div>
+        <div class="attachment-strip hidden" id="attachmentStrip"></div>
+        <div class="composer" id="composer">
+          <button class="attach-button" id="attachButton" title="添加图片">
+            <svg viewBox="0 0 24 24"><path d="M21.4 11.6 12 21a6 6 0 0 1-8.5-8.5l9-9a4 4 0 1 1 5.7 5.7l-9 9a2 2 0 1 1-2.9-2.8l8.4-8.4"/></svg>
+          </button>
+          <input type="file" id="imageInput" accept="image/png,image/jpeg,image/webp,image/gif" multiple hidden>
+          <textarea id="messageInput" rows="1" placeholder="发送消息，或拖入 / 粘贴图片…"></textarea>
+          <div class="composer-meta"><span id="charCount"></span><span>↵ 发送 · ⇧↵ 换行</span></div>
+          <button class="send-button" id="sendButton" title="发送">
+            <svg class="send-icon" viewBox="0 0 24 24"><path d="m5 12 14-8-5 16-3-6Z"/><path d="m11 14 8-10"/></svg>
+            <svg class="stop-icon" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1"/></svg>
+          </button>
+        </div>
+        <div class="privacy-note"><span></span>对话与记忆保存在本机；究极与后台智慧额度会发送必要文字。图片只在本地读取，不上传原图。</div>
+      </footer>
+    </main>
+  </div>
+
+  <div class="drop-overlay hidden" id="dropOverlay"><div><span>▣</span><b>松开以添加图片</b><small>最多 4 张，支持 PNG、JPEG、WebP 和 GIF</small></div></div>
+
+  <div class="drawer-backdrop hidden" id="drawerBackdrop"></div>
+  <aside class="settings-drawer" id="settingsDrawer">
+    <header><div><small>✦ 星语茶话屋 ✦</small><h2>设置与管理</h2></div><button class="icon-button" id="closeSettings"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></header>
+    <nav class="settings-tabs">
+      <button class="active" data-tab="general">对话</button>
+      <button data-tab="memory">记忆</button>
+      <button data-tab="lounge">茶话室</button>
+      <button data-tab="models">模型</button>
+      <button data-tab="api">API</button>
+      <button data-tab="storage">存储</button>
+    </nav>
+    <div class="settings-content">
+      <section class="settings-page active" data-page="general">
+        <div class="quality-explainer" id="qualityExplainer"><b>三档推理策略</b><p>快速限制单次输出；均衡适合日常；深度开启模型独立思考字段，思考过程不混入正文。</p></div>
+        <div class="setting-block"><div class="setting-title"><div><b>生成温度</b><small>较低更稳定，较高更有创造性</small></div><output id="temperatureValue">0.7</output></div><input type="range" id="temperatureInput" min="0" max="1.5" step="0.1" value="0.7"></div>
+        <div class="setting-block"><div class="setting-title"><div><b>采样范围 Top P</b><small>降低可减少跑题，默认 0.95</small></div><output id="topPValue">0.95</output></div><input type="range" id="topPInput" min="0.1" max="1" step="0.05" value="0.95"></div>
+        <div class="setting-block"><div class="setting-title"><div><b>重复抑制</b><small>过高可能破坏自然中文，建议 1.05–1.15</small></div><output id="repeatPenaltyValue">1.10</output></div><input type="range" id="repeatPenaltyInput" min="0.9" max="1.4" step="0.05" value="1.1"></div>
+        <div class="setting-grid"><label class="field-label">随机种子<input class="text-field" id="seedInput" type="number" value="0" min="0" max="2147483647"><small>0 为随机；固定数值便于复现</small></label><label class="field-label">释放策略<select class="field-select" id="keepAliveSelect" disabled><option value="1m">对话后保留 1 分钟</option></select><small>方便紧接追问；1 分钟后自动释放本地模型权重</small></label></div>
+        <div class="setting-block"><div class="setting-title"><div><b>单次最大输出</b><small>会按当前模型的安全上限自动限制</small></div></div><select class="field-select" id="maxTokensSelect"><option value="0">自动（推荐）</option><option value="512">512 tokens</option><option value="1024">1024 tokens</option><option value="2048">2048 tokens</option></select></div>
+        <div class="section-divider"><span>macOS 菜单栏</span></div>
+        <label class="native-setting"><span><b>登录时自动启动</b><small>系统登录后在菜单栏静默运行，不显示 Dock 图标。</small></span><span class="switch-control"><input type="checkbox" id="launchAtLoginToggle"><span></span></span></label>
+        <label class="native-setting"><span><b>启动时打开主面板</b><small>关闭后只显示菜单栏图标，单击即可快速对话。</small></span><span class="switch-control"><input type="checkbox" id="openMainAtLaunchToggle"><span></span></span></label>
+        <div class="native-settings-status" id="nativeSettingsStatus">正在读取原生客户端状态…</div>
+        <div class="info-card"><span>✦</span><div><b>长对话保护已开启</b><p>隐藏思考默认关闭，窗口快满时自动整理旧对话，并为正文保留输出空间。</p></div></div>
+      </section>
+      <section class="settings-page" data-page="memory">
+        <div id="memoryEditor">
+          <div class="memory-identity-card" id="memoryIdentityCard"><img id="memoryPersonaAvatar" src="/app/assets/aili-avatar.png" alt=""><div><b id="memoryPersonaTitle">艾莉的跨会话记忆</b><small id="memoryStatus">四个档位共享 · 自动持续更新</small></div></div>
+          <label class="field-label">可成长的个人简介<textarea class="large-field profile-field" id="personaProfileInput" placeholder="会根据真实对话、茶话、文件和屏幕经历自动更新，也可手动编辑"></textarea><small>属于当前人格自己；后台模型会从真实经历中持续学习并更新。</small></label>
+          <label class="field-label locked-field">受保护的核心人格与质量规则<textarea class="large-field" id="personaSystemPromptInput" readonly></textarea><small>姓名、年龄、性格底子、事实质量和记忆边界由程序保护，不能被自我学习覆盖。</small></label>
+          <label class="field-label">共享长期记忆<textarea class="large-field memory-field" id="personaMemoryInput" placeholder="每轮对话完成后自动整理"></textarea></label>
+          <div class="button-row"><button class="primary-action" id="saveMemoryButton">保存简介与记忆</button><button class="secondary-action" id="rebuildMemoryButton">从原文重建</button></div>
+          <div class="session-memory-block" id="sessionMemoryBlock">
+            <div class="section-divider"><span>当前会话（不跨新对话）</span></div>
+            <label class="field-label">会话名称<input class="text-field" id="conversationTitleInput" maxlength="80"></label>
+            <label class="field-label">本会话追加提示词<textarea class="large-field" id="systemPromptInput" placeholder="只影响当前会话，可留空"></textarea></label>
+            <label class="field-label">本会话滚动摘要<textarea class="large-field" id="summaryInput" placeholder="上下文接近上限时自动生成"></textarea></label>
+          </div>
+        </div>
+      </section>
+      <section class="settings-page" data-page="lounge">
+        <div class="lounge-hero">
+          <div class="lounge-cast" aria-hidden="true">
+            <img class="lounge-avatar aili" src="/app/assets/aili-avatar.png" alt="艾莉"><i></i><img class="lounge-avatar shaya" src="/app/assets/shaya-avatar.png" alt="沙雅">
+          </div>
+          <div class="lounge-hero-copy"><small>AILI × SHAYA TEA TIME</small><h3>艾莉 × 沙雅的秘密茶会</h3><p>她们会在茶话、对话与共同经历里慢慢记住属于你们的故事。</p></div>
+          <label class="switch-control"><input type="checkbox" id="loungeEnabled"><span></span></label>
+        </div>
+
+        <div class="lounge-status-card">
+          <div><span class="lounge-pulse" id="loungePulse"></span><div><b id="loungeStatus">正在读取状态…</b><small id="loungeNextRun"></small></div></div>
+          <span class="lounge-tier" id="loungeTier">AUTO</span>
+        </div>
+        <nav class="lounge-view-nav" aria-label="茶话室内容分区">
+          <button class="active" data-lounge-view="overview" aria-selected="true"><b>茶会调度</b><small>状态、记忆与后台策略</small></button>
+          <button data-lounge-view="screen" aria-selected="false"><b>屏幕观察</b><small>权限、频率与文字经历</small></button>
+          <button data-lounge-view="history" aria-selected="false"><b>茶话记录</b><small>艾莉与沙雅的交流原文</small></button>
+        </nav>
+
+        <section class="lounge-view active" data-lounge-panel="overview">
+          <div class="lounge-resources">
+            <div><small>可用内存</small><b id="loungeMemory">--</b></div>
+            <div><small>CPU 压力</small><b id="loungeLoad">--</b></div>
+            <div><small>系统空闲</small><b id="loungeIdle">--</b></div>
+            <div><small>今日轮次</small><b id="loungeToday">--</b></div>
+          </div>
+          <div class="memory-pool-cards">
+            <div class="aili"><img src="/app/assets/aili-avatar.png" alt=""><p><small>艾莉记忆池</small><b id="ailiPoolCount">--</b><em id="ailiPoolDetail">正在读取</em></p></div>
+            <div class="shaya"><img src="/app/assets/shaya-avatar.png" alt=""><p><small>沙雅记忆池</small><b id="shayaPoolCount">--</b><em id="shayaPoolDetail">正在读取</em></p></div>
+          </div>
+          <div class="lounge-runtime-policy"><span>✦</span><p><b>开聊后会尽量完整跑完</b><small>正常情况下先完成至少 5 轮双方互答（10 条发言），再由两人判断是否自然收尾。运行中资源收紧时，9B 会自动换成 4B 继续；4B 已是最低档，只有极端压力才会完成当前互答后提前收尾。主人发来新消息时仍会优先让出模型。</small></p></div>
+
+          <div class="section-divider"><span>自适应调度</span></div>
+          <div class="setting-grid lounge-grid">
+            <label class="field-label">空闲门槛<select class="field-select" id="loungeIdleSelect"><option value="10">10 分钟</option><option value="15">15 分钟（推荐）</option><option value="20">20 分钟</option><option value="30">30 分钟</option><option value="60">60 分钟</option></select></label>
+            <label class="field-label">自主模型<select class="field-select" id="loungeModelSelect"><option value="auto">自动 4B / 9B</option><option value="4b">固定 4B</option><option value="9b">优先 9B</option></select></label>
+            <label class="field-label">最短间隔<select class="field-select" id="loungeMinInterval"><option value="120">2 小时</option><option value="180">3 小时（推荐）</option><option value="240">4 小时</option><option value="360">6 小时</option></select></label>
+            <label class="field-label">最长间隔<select class="field-select" id="loungeMaxInterval"><option value="240">4 小时</option><option value="360">6 小时（推荐）</option><option value="480">8 小时</option><option value="720">12 小时</option></select></label>
+            <label class="field-label">每日最多<select class="field-select" id="loungeDailyMax"><option value="2">2 轮</option><option value="3">3 轮</option><option value="4">4 轮（推荐）</option><option value="6">6 轮</option></select></label>
+          </div>
+          <label class="check-field"><input type="checkbox" id="loungeInspectFiles"><span><b>允许只读观察本地文件</b><small>程序先筛选，再由艾莉 4B/9B 挑选；绝不修改原文件。</small></span></label>
+          <label class="field-label lounge-roots-label">可观察位置（每行一个）<textarea class="large-field lounge-roots" id="loungeRoots" placeholder="/Users/你的名字&#10;/Applications&#10;/Volumes">加载中…</textarea><small>默认包含用户目录、应用与外接盘，自动排除 macOS 系统目录和构建缓存。</small></label>
+          <div class="button-row"><button class="primary-action" id="saveLoungeButton">保存后台策略</button><button class="secondary-action" id="runLoungeButton">现在聊一轮</button></div>
+        </section>
+
+        <section class="lounge-view" data-lounge-panel="screen">
+          <div class="lounge-section-heading"><span>◉</span><div><b>屏幕观察</b><small>配置与观察经历独立显示，不再和茶话原文挤在一起。</small></div></div>
+          <div class="screen-watch-card">
+            <div class="screen-watch-head"><div><span class="screen-eye">◉</span><p><b>偶尔看一眼主人正在做什么</b><small id="screenWatchStatus">正在读取状态…</small></p></div><label class="switch-control"><input type="checkbox" id="screenWatchEnabled"><span></span></label></div>
+            <p class="screen-watch-note">原生客户端通过 ScreenCaptureKit 无打扰地获取所有显示器，不切换窗口或全屏空间。截图只交给本地视觉模型，原图随即释放且不入库；后续究极讨论只使用本地生成的文字描述。</p>
+            <div class="setting-grid lounge-grid screen-grid">
+              <label class="field-label">最短间隔<select class="field-select" id="screenMinInterval"><option value="60">1 小时</option><option value="90">1.5 小时</option><option value="120">2 小时（推荐）</option><option value="180">3 小时</option><option value="360">6 小时</option></select></label>
+              <label class="field-label">最长间隔<select class="field-select" id="screenMaxInterval"><option value="120">2 小时</option><option value="180">3 小时（推荐）</option><option value="240">4 小时</option><option value="360">6 小时</option><option value="720">12 小时</option></select></label>
+              <label class="field-label">每日最多<select class="field-select" id="screenDailyMax"><option value="2">2 次</option><option value="4">4 次</option><option value="6">6 次（推荐）</option><option value="8">8 次</option><option value="12">12 次</option></select></label>
+            </div>
+            <div class="button-row"><button class="secondary-action" id="watchScreenButton">现在看一眼</button><button class="secondary-action diagnostic-action" id="checkScreenCaptureButton">检测权限与截图</button><button class="secondary-action" id="openScreenPrivacyButton">屏幕权限设置</button><button class="danger-link" id="clearScreenButton">清空屏幕观察文字</button></div>
+            <div class="screen-diagnostic idle" id="screenDiagnostic" role="status" aria-live="polite"><span id="screenDiagnosticIcon">?</span><p><b id="screenDiagnosticTitle">尚未检测</b><small id="screenDiagnosticDetail">点击检测后，只读取 macOS 权限并截取一帧；不调用模型、不保存截图。</small></p></div>
+          </div>
+          <div class="screen-watch-log" id="screenWatchLog"><div class="lounge-empty">尚无屏幕观察记录</div></div>
+        </section>
+
+        <section class="lounge-view" data-lounge-panel="history">
+          <div class="lounge-section-heading"><span>☕︎</span><div><b>茶话记录</b><small>按轮次阅读她们的交流、文件观察与自然收尾。</small></div></div>
+          <div class="lounge-log" id="loungeLog"><div class="lounge-empty">尚无茶话室记录</div></div>
+          <div class="lounge-log-actions"><button class="secondary-action" id="refreshLoungeButton">刷新日志</button><button class="danger-link" id="clearLoungeButton">清空茶话与学习记忆</button></div>
+        </section>
+      </section>
+      <section class="settings-page" data-page="models">
+        <div class="ultimate-usage-card">
+          <div class="ultimate-usage-head"><div><span>✦</span><p><b>究极用量</b><small>后台每日 10 万 token，耗尽自动回落本地</small></p></div><strong id="ultimateTodayCost">¥0.000000</strong></div>
+          <div class="ultimate-quota-track"><i id="ultimateQuotaBar"></i></div>
+          <div class="ultimate-usage-grid">
+            <div><small>后台已用</small><b id="ultimateTodayTokens">0</b></div>
+            <div><small>后台剩余</small><b id="ultimateRemaining">100,000</b></div>
+            <div><small>今日缓存命中</small><b id="ultimateCacheRate">0%</b></div>
+            <div><small>累计估算费用</small><b id="ultimateTotalCost">¥0.000000</b></div>
+          </div>
+          <p class="ultimate-usage-note" id="ultimateUsageNote">正在读取究极状态…</p>
+        </div>
+        <div class="model-grid" id="modelGrid"></div>
+      </section>
+      <section class="settings-page" data-page="api">
+        <div class="api-card"><div><span class="status-dot online"></span><b>Ollama 原生 API</b></div><code id="nativeApiValue">http://127.0.0.1:11434</code><button data-copy="native">复制</button><p>完整保留 Ollama 原生参数、视觉和工具能力。</p></div>
+        <div class="api-card accent"><div><span class="status-dot online"></span><b>双人格记忆 API</b></div><code id="memoryApiValue">http://127.0.0.1:11435/v1/</code><button data-copy="memory">复制</button><p>OpenAI 兼容；模型自动决定艾莉或沙雅，conversation_id 负责当前会话上下文，人格记忆会跨会话共享。</p></div>
+        <div class="code-sample"><div><span>Python 配置</span><button id="copyCodeButton">复制代码</button></div><pre id="apiCodeSample">from openai import OpenAI
+
+client = OpenAI(
+    base_url="http://127.0.0.1:11435/v1/",
+    api_key="local"
+)</pre></div>
+      </section>
+      <section class="settings-page" data-page="storage">
+        <div class="storage-hero"><div class="storage-ring"><span id="storageTotal">0 KB</span><small>本地数据</small></div><div><h3>完全可控的本地存储</h3><p id="storagePath"></p><button class="secondary-action" id="revealDataButton">在 Finder 中显示</button></div></div>
+        <div class="storage-stats"><div><span>对话</span><b id="storageSessions">0</b></div><div><span>消息</span><b id="storageMessages">0</b></div><div><span>图片</span><b id="storageUploads">0 KB</b></div><div><span>数据库</span><b id="storageDatabase">0 KB</b></div></div>
+        <div class="danger-zone"><h3>历史清理</h3><p>清理会删除对话原文和所属图片并压缩数据库，但保留艾莉与沙雅的共享长期记忆；长期记忆可在“记忆”页单独编辑或重建。</p><div class="button-row"><button class="secondary-action" id="cleanup30Button">清理 30 天前</button><button class="danger-action" id="cleanupAllButton">清空全部对话</button></div></div>
+      </section>
+    </div>
+  </aside>
+
+  <div class="modal-backdrop hidden" id="modalBackdrop">
+    <div class="modal" id="confirmModal"><div class="modal-icon" id="modalIcon">!</div><h3 id="modalTitle">确认操作</h3><p id="modalText"></p><div class="button-row"><button class="secondary-action" id="modalCancel">取消</button><button class="danger-action" id="modalConfirm">确认</button></div></div>
+  </div>
+  <div class="image-lightbox hidden" id="imageLightbox"><button id="closeLightbox">×</button><img id="lightboxImage" alt="预览"></div>
+  <div class="toast-stack" id="toastStack"></div>
+
+  <script src="/app/app.js"></script>
+</body>
+</html>
