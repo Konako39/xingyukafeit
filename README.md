@@ -30,6 +30,10 @@
 
 完整教程见 [本地大模型使用说明](<./文档/本地大模型使用说明.md>)。
 
+### 许可证
+
+本项目采用 [PolyForm Strict License 1.0.0](./LICENSE.md)：仅允许非商业使用，不允许修改、创作衍生作品或再分发。
+
 ## English
 
 Double-click [星语茶话屋.app](<./星语茶话屋.app>) to get started.
@@ -58,6 +62,10 @@ Double-click [星语茶话屋.app](<./星语茶话屋.app>) to get started.
 
 For the complete guide, see the [Local Model Guide](<./文档/本地大模型使用说明.md>) (Chinese).
 
+### License
+
+This project is licensed under the [PolyForm Strict License 1.0.0](./LICENSE.md): noncommercial use only; modification, derivative works, and redistribution are not permitted.
+
 ## 日本語
 
 [星语茶话屋.app](<./星语茶话屋.app>) をダブルクリックすると起動できます。
@@ -85,3 +93,7 @@ For the complete guide, see the [Local Model Guide](<./文档/本地大模型使
 - 六つのモデルを対象とした自動ストレステストで、指示追従、複数ターンの記憶、長文コンテキスト、深い推論を検証
 
 完全なガイドは [ローカル大規模言語モデル利用ガイド](<./文档/本地大模型使用说明.md>) を参照してください（中国語）。
+
+### ライセンス
+
+本プロジェクトには [PolyForm Strict License 1.0.0](./LICENSE.md) が適用されます。非営利目的での使用のみ許可され、変更、派生物の作成、再配布は禁止されています。
